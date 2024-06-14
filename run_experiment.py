@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+from time import time, sleep
 
 os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
@@ -41,8 +43,18 @@ def main():
         exp = BallCatchingExperiment(args.base_log_dir, args.type, args.learner, parameters, args.seed,
                                      use_true_rew=args.true_rewards)
 
-    exp.train()
-    exp.evaluate()
+    t_time = time()
+    sleep(1)
+    #exp.train()
+    t_time = time() - t_time
+    e_time = time()
+    sleep(2)
+    #exp.evaluate()
+    e_time = time() - e_time
+
+    with open(args.base_log_dir + "/times.csv", "w") as f:
+        f.write(f'{datetime.now()},{t_time},{e_time}')
+
 
 
 if __name__ == "__main__":
