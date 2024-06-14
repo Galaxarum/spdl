@@ -44,15 +44,13 @@ def main():
                                      use_true_rew=args.true_rewards)
 
     t_time = time()
-    sleep(1)
-    #exp.train()
+    exp.train()
     t_time = time() - t_time
     e_time = time()
-    sleep(2)
-    #exp.evaluate()
+    exp.evaluate()
     e_time = time() - e_time
 
-    with open(args.base_log_dir + "/times.csv", "w") as f:
+    with open(os.path.join(exp.get_log_dir(), "times.csv"), "w") as f:
         f.write(f'{datetime.now()},{t_time},{e_time}')
 
 
